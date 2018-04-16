@@ -18,7 +18,7 @@ The goals / steps of this project are the following:
 [image3]: ./writeup_images/undistorted_screen.png "Test Image"
 [image4]: ./writeup_images/gradient_sample.jpg "Gradient"
 [image5]: ./writeup_images/warped.jpg "Warped"
-[image6]: ./writeup_images/line_plot.jpg "Line"
+[image6]: ./writeup_images/line_plot.png "Line"
 [image7]: ./writeup_images/final_result.jpg "Line"
 [image8]: ./writeup_images/wrong_detect.jpg "Wrong Image"
 [video1]: ./final_video.mp4 "Video"
