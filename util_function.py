@@ -37,7 +37,7 @@ def camera_calibration(board_size=(9, 6)):
         dist_pickle["mtx"] = mtx
         dist_pickle["dist"] = dist
         pickle.dump(dist_pickle, open(cal_file, "wb"))
-
+    print("##### Camera Calibration Finished #####")
     return dist_pickle
 
 

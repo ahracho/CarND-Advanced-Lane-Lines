@@ -116,8 +116,8 @@ def process_image(image):
     return result
 
 
-white_output = 'test_video.mp4'
+white_output = 'final_video.mp4'
 
-clip1 = VideoFileClip("./harder_challenge_video.mp4").subclip(0,5)
+clip1 = VideoFileClip("./project_video.mp4")
 white_clip = clip1.fl_image(process_image)
 white_clip.write_videofile(white_output, audio=False)
