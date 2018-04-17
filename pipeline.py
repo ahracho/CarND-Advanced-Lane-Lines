@@ -32,18 +32,16 @@ def process_image(image):
 
     # (3) Set several thresholds to detect lane lines
     # (3-1) Gradient : Use Sobel X operation
-    grad_thresh = (10, 100)
+    grad_thresh = (30, 150)
     abs_sobelx = abs_sobel_thresh(image, orient='x', thresh=grad_thresh)
 
     # (3-2) Color Threshold : Use H and S channel
-    h_thresh = (10, 100)
-    s_thresh = (10, 255)
-    h_binary = hls_threshold(image, ch="H", thresh=h_thresh)
+    s_thresh = (175, 255)
     s_binary = hls_threshold(image, ch="S", thresh=s_thresh)
 
     # (3-3) Threshold Combination
     combined = np.zeros_like(s_binary)
-    combined[((abs_sobelx == 1) & ((s_binary == 1) | (h_binary == 1)))] = 1
+    combined[((abs_sobelx == 1) | (s_binary == 1))] = 1
 
     # (4) Perspective Transform : To find lane lines from top-down view
     top_limit = 0.67

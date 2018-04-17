@@ -2,7 +2,7 @@ import numpy as np
 
 
 class Line():
-    def __init__(self, xm=3.7/700, ym=30/720):
+    def __init__(self, xm=3.7/800, ym=30/720):
         self.left_fit = []
         self.right_fit = []
         self.xm_per_pix = xm  # meters per pixel in horizontal axis

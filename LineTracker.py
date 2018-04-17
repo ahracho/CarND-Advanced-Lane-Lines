@@ -92,6 +92,7 @@ class LineTracker():
             centroids.append([leftx_current, rightx_current])
 
         self.recent_center.append(centroids)
+        self.recent_center = self.recent_center[-self.smooth_factor:]
 
         # Find polynomial points based on centroids (not on all white dots)
         line.leftx = np.array(centroids, dtype=np.uint32)[:, 0]
