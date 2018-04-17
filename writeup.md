@@ -67,13 +67,25 @@ Sample images for undistorted image is as below.
 The first thing I have problem with was finding good threshold combination so that I can detect lane lines regardless of color, shade and obstacles etc. I used test images in `test_images` folder to verity how my filter works. Normally, it worked fine with `straight_linesX.jpg`, I need to tune the thresholds to make it work for images with shadow.
 
 1. Sobel Gradient (Line 36-37 in `pipeline.py` and abs_sobel_thresh() in `util_function.py`)  
-First, I tried sobel gradient both x and y, but it seemed sobel-y gradient made no big difference, that's why I used only sobel-x gradient. I set threshold as (10, 100). With a wide range of threshold, noise data can be added but I wanted most of lane lines to be detected here.
+First, I tried sobel gradient both x and y, but it seemed sobel-y gradient made no big difference, that's why I used only sobel-x gradient. I set threshold as (10, 100). With a wide range of threshold, noise data can be added but I wanted most of lane lines to be detected here.  
+
+| Modified   | 
+|:-------------|
+| Sobel gradient has been updated to (30, 150) in final version.      |
 
 2. Color Gradient (Line 40-43 in `pipeline.py` and hls_threshold() in `util_function.py`)  
 I changed image into HLS channel and adjusted threshold to H and S channel. By change color channel into HLS, I could get lane line information even when there was shadow on lanes and they have darker color pixel. I set threshold for H channel as (10, 100), and for S channel as (10, 255). 
 
+| Modified   | 
+|:-------------|
+| Color gradient has been updated. H channel has been removed and threshold for S channel has been updated to (175, 255).      |
+
 3. Combination (Line 46-47 in `pipeline.py`)
 Last thing I did for gradient was combining three binary image into one. Since my sobel binary image contains clear lane lines but with many noises, I used & operation between sobel and color gradient (Line 47).
+
+| Modified   | 
+|:-------------|
+| Combination formula is changed to `combined[((abs_sobelx == 1) | (s_binary == 1))] = 1`      |
 
 ![alt text][image4]
 
@@ -167,6 +179,11 @@ This code is defined in calculate_curvature() in Line class (`Line.py`).
 Right after calculating centroids in tracker instance, I get polynomial coefficient both for left and right lanes. And because they are calculated based on pixel, they need to be changed into meter-based number.  
 
 Meter per pixel information was given in the lecture, so I used this value to calculate curvature. First, need to get polynomial coefficents again based on meter information(Line 16-17, `Line.py`). And then under the formula, calculate curvature for both left and right lanes, I used the average value to print out.
+
+| Modified   | 
+|:-------------|
+| Meter per pixel for x-axis has been modified to 3.7/800 since the number 3.7/700 given in lecture refers to the width of the lane in meters and 700 to the width in pixels and in my script it is around 800 pixels.      |
+
 
 Curvature value normally stays between 1km ~ 3km but sometimes it overs 5km especially on straight lanes. As you can see in `final_video.mp4` I can detect lanes most of the time, but curvature value jumps around (**I'm not sure how to tune this vaule. NEED IMPROVEMENT**).  
 
